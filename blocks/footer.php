@@ -6,8 +6,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-  // При нажатии на кнопку отправить происходит добавлении записи в таблицу БД
-  // Все происходит в формате Ajax запроса
+  // При нажатии на кнопку "Отправить" добавляем запись в таблицу БД
+  // в формате Ajax запроса
   $('#send_to_chat').click(function () {
     var message = $('#chat_message').val();
 
@@ -33,7 +33,7 @@
       cache: false,
       dataType: 'html',
       success: function(data) {
-        // В data мы получаем весь HTML чтобы сразу установить его в блок
+        // В data мы получаем весь HTML и само сообщение
         $(".allMessages").html(data);
       }
     });

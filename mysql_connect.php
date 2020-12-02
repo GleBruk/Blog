@@ -1,4 +1,5 @@
 <?php
+// Подключаемся к БД
   $user = 'root';
   $password = '';
   $db = 'baza';

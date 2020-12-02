@@ -3,7 +3,7 @@
 <head>
   <?php
     require_once 'mysql_connect.php';
-
+    // Берём из БД нужную статью по id
     $sql = 'SELECT * FROM `articles` WHERE `id` = :id';
     $query = $pdo->prepare($sql);
     $query->execute(['id' => $_GET['id']]);
@@ -24,10 +24,17 @@
           <h1><?=$article->title?></h1>
           <p><b>Автор статьи:</b> <mark><?=$article->author?></mark></p>
           <?php
+          //Получаем день публикации
             $date = date('d ', $article->date);
-            $array = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+          //Теперь создаём массив с названиями месяцев на русском
+            $array = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля",
+                "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+          //Получаем русское название месяца, используя созданный массив и номер
+          // месяца публикации в качестве индекса
             $date .= $array[date('n', $article->date) - 1];
+          //Получаем время публикации
             $date .= date(' H:i', $article->date);
+          //Выводим время публикации и саму статью
           ?>
           <p><b>Время публикации:</b> <u><?=$date?></u></p>
           <p>
@@ -50,15 +57,18 @@
           </button>
         </form>
         <?php
+        // Проводим валидацию данных
           if($_POST['username'] != '' && $_POST['mess'] != '') {
-            $username = trim(filter_var($_POST['username'], FILTER_SANITIZE_STRING));
-            $mess = trim(filter_var($_POST['mess'], FILTER_SANITIZE_STRING));
-
+            $username = trim(filter_var($_POST['username'],
+                FILTER_SANITIZE_STRING));
+            $mess = trim(filter_var($_POST['mess'],
+                FILTER_SANITIZE_STRING));
+        // Добавляем комментарий в БД
             $sql = 'INSERT INTO comments(name, mess, article_id) VALUES(?, ?, ?)';
             $query = $pdo->prepare($sql);
             $query->execute([$username, $mess, $_GET['id']]);
           }
-
+        // Выводим все комментарии из БД
           $sql = 'SELECT * FROM `comments` WHERE `article_id` = :id ORDER BY `id` DESC';
           $query = $pdo->prepare($sql);
           $query->execute(['id' => $_GET['id']]);

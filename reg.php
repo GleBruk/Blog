@@ -46,7 +46,8 @@
       var email = $('#email').val();
       var login = $('#login').val();
       var pass = $('#pass').val();
-
+  // При нажатии кнопки "Зарегистрироваться" пользователь добавляется в БД.
+  // Иначе выводится ошибка
       $.ajax({
         url: 'ajax/reg.php',
         type: 'POST',

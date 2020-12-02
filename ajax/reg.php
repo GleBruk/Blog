@@ -1,9 +1,9 @@
 <?php
+// Проводим валидацию данных
   $username = trim(filter_var($_POST['username'], FILTER_SANITIZE_STRING));
   $email = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
   $login = trim(filter_var($_POST['login'], FILTER_SANITIZE_STRING));
   $pass = trim(filter_var($_POST['pass'], FILTER_SANITIZE_STRING));
-
   $error = '';
   if(strlen($username) <= 3)
     $error = 'Введите имя';
@@ -18,6 +18,7 @@
     echo $error;
     exit();
   }
+// Если данные введены без ошибок, то устанавливаем куки и добавляем пользователя в БД
 
   setcookie('login', $login, time() + 3600 * 24 * 30, "/");
 

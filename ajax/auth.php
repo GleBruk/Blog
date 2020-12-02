@@ -1,7 +1,7 @@
 <?php
+// Проводим валидацию
   $login = trim(filter_var($_POST['login'], FILTER_SANITIZE_STRING));
   $pass = trim(filter_var($_POST['pass'], FILTER_SANITIZE_STRING));
-
   $error = '';
   if(strlen($login) <= 3)
     $error = 'Введите логин';
@@ -12,10 +12,10 @@
     echo $error;
     exit();
   }
-
+// Хешируем пароль
   $hash = "sdfjsdkhgs234jh324SDk";
   $pass = md5($pass . $hash);
-
+  // Берём из БД id пользователя по введённому логину и паролю
   require_once '../mysql_connect.php';
 
   $sql = 'SELECT `id` FROM `users` WHERE `login` = :login && `pass` = :pass';
@@ -23,7 +23,8 @@
   $query->execute(['login' => $login, 'pass' => $pass]);
 
   $user = $query->fetch(PDO::FETCH_OBJ);
-
+  // Если пользователь не найден, то выводим ошибку. Иначе устанавливаем куки с логином
+// пользователя на месяц
   if($user->id == 0)
     echo 'Такого пользователя не существует';
   else {

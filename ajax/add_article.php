@@ -1,8 +1,8 @@
 <?php
+// Проводим валидацию
   $title = trim(filter_var($_POST['title'], FILTER_SANITIZE_STRING));
   $intro = trim(filter_var($_POST['intro'], FILTER_SANITIZE_STRING));
   $text = trim($_POST['text']);
-
   $error = '';
   if(strlen($title) <= 3)
     $error = 'Введите название статьи';
@@ -15,7 +15,7 @@
     echo $error;
     exit();
   }
-
+// Если данные введены корректно, то статья отправляется в БД
   require_once '../mysql_connect.php';
 
   $sql = 'INSERT INTO articles(title, intro, text, date, author) VALUES(?, ?, ?, ?, ?)';

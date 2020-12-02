@@ -39,11 +39,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
+  //При нажатии кнопки "Отправить сообщение", сообщение отправляется на почту
     $('#mess_send').click(function () {
       var name = $('#username').val();
       var email = $('#email').val();
       var mess = $('#mess').val();
-
+  //Если данные заполнены без ошибок, то выводится сообщение "Готово".
+  // Иначе выводится ошибка
       $.ajax({
         url: 'ajax/mail.php',
         type: 'POST',

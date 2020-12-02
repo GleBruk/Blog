@@ -1,4 +1,5 @@
 <?php
+// Если пользователь не авторизован, то сперва он должен будет пройти регистрацию
   if($_COOKIE['login'] == '') {
     header('Location: /reg.php');
     exit();
@@ -45,11 +46,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script>
+      // При нажати кнопки "Добавить", статья добавляется в БД
     $('#article_send').click(function () {
       var title = $('#title').val();
       var intro = $('#intro').val();
       var text = $('#text').val();
-
+      // Если данные заполнены корректно, то выводится сообщение "Готово". Иначе
+        // выводится ошибка
       $.ajax({
         url: 'ajax/add_article.php',
         type: 'POST',

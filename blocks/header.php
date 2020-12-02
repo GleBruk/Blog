@@ -4,16 +4,20 @@
     <a class="p-2 text-dark" href="/">Главная</a>
     <a class="p-2 text-dark" href="/contacts.php">Контакты</a>
     <?php
+    // Проверяем, авторизован ли пользователь. Если авторизован,
+    // то выводим ссылку на добавление статьи
       if($_COOKIE['login'] != '')
         echo '<a class="p-2 text-dark" href="/article.php">Добавить статью</a>';
     ?>
   </nav>
   <?php
+  // Если пользователь не авторизован, то выводим ссылки на авторизации и регистрации
     if($_COOKIE['login'] == ''):
   ?>
   <a class="btn btn-outline-primary mr-2 mb-2" href="/auth.php">Войти</a>
   <a class="btn btn-outline-primary mb-2" href="/reg.php">Регистрация</a>
   <?php
+    // Иначе выводим ссылку на кабинет пользователя
     else:
   ?>
   <a class="btn btn-outline-primary mb-2" href="/auth.php">Кабинет пользователя</a>

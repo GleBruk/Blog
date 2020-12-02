@@ -7,8 +7,7 @@
   $query->execute();
   $messages = $query->fetchAll(PDO::FETCH_ASSOC);
 
-  // Если сообщений нет, то выводим сообщение что их нет
-  // Плюс выходим из скрипта при помощи exit()
+  // Если сообщений нет, то выводим сообщение, что их нет и выходим из скрипта
   if(count($messages) == 0) {
     echo '<div class="alert alert-warning">Пока сообщений еще нет</div>';
     exit();
@@ -19,6 +18,6 @@
   foreach($messages as $el)
     $html .= '<div class="alert alert-info">'.$el['message'].'</div>';
 
-  // Возвращаем из скрипта все эти сообщения
+  // Возвращаем из скрипта все сообщения
   echo $html;
 ?>
